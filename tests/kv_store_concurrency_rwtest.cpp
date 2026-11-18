@@ -107,7 +107,7 @@ void test_rw_test()
         assert(result.value() == expected_value);
     }
 
-    std::cout << "test passed";
+    std::cout << "test passed\n";
 }
 
 int main()
