@@ -6,7 +6,7 @@
 #include<mutex>
 #include<array>
 #include<functional>
-class kv_store
+class sharded_kv_store
 {
 
     private:
