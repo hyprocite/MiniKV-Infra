@@ -1,4 +1,4 @@
-#include "../include/minikv/kv_store.hpp"
+#include "../include/minikv/sharded_kv_store.hpp"
 
 #include <cassert>
 #include <cstddef>  
@@ -10,7 +10,7 @@
 
 void test_rw_test()
 {
-    kv_store store;
+    sharded_kv_store store;
     const int thread_count = 2;
     const int keys_per_thread = 500;
     const int total_worker = thread_count*2;
