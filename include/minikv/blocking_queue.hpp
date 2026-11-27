@@ -27,7 +27,7 @@ public:
     PushResult try_push(T value)
     {
         {
-            std::lock_guard<std::mutex> lock_(mutex);
+            std::lock_guard<std::mutex> lock_(mutex_);
             if(closed_)
             {
                 return PushResult::Closed;
@@ -45,11 +45,11 @@ public:
 
     std::optional<T> wait_pop()
     {
-            std::unique_lock<std::mutex> lock_(mutex);
+            std::unique_lock<std::mutex> lock_(mutex_);
             not_empty_.wait(lock_,[this]
             {
                 return closed_ || !queue_.empty();
-            })
+            });
             if (queue_.empty())
             {
                 // 等待条件已经成立，又没有元素，
@@ -64,7 +64,7 @@ public:
     void close()
     {
         {
-        std::lock_guard<std::mutex> lock_(mutex);
+        std::lock_guard<std::mutex> lock_(mutex_);
         closed_ = true;
         }
         not_empty_.notify_all();
